@@ -1,0 +1,17 @@
+{
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Eksmo\\Cinema\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.3",
+        "silex/silex": "~1.2",
+        "symfony/console": "~2.4",
+        "symfony/yaml": "~2.4",
+        "doctrine/dbal": "~2.4",
+        "doctrine/migrations": "1.0.*@dev",
+        "j4mie/paris": "~1.4"
+    }
+}

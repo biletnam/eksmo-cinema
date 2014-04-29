@@ -1,0 +1,28 @@
+#!/usr/bin/env php
+<?php
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Application as ConsoleApplication;
+use Doctrine\DBAL\Migrations\Tools\Console\Command\MigrateCommand;
+use Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper;
+use Eksmo\Cinema\App;
+use Eksmo\Cinema\Command\LoadFixturesCommand;
+
+set_time_limit(0);
+$input = new ArgvInput();
+$env = $input->getParameterOption(array('--env', '-e'), getenv('ENV') ?: 'dev');
+$app = new App($env);
+$app->boot();
+
+$console = new ConsoleApplication();
+$console->getDefinition()->addOption(
+    new InputOption('--env', '-e', InputOption::VALUE_REQUIRED, 'The Environment name.', 'dev')
+);
+$console->addCommands(array(
+    new MigrateCommand(),
+    new LoadFixturesCommand()
+));
+$console->getHelperSet()->set(new ConnectionHelper($app['db']), 'db');
+$console->run($input);

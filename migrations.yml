@@ -1,0 +1,4 @@
+name:                  Eksmo Cinema Migrations
+migrations_namespace:  Eksmo\Cinema\Migration
+table_name:            migration
+migrations_directory:  /src/Migration
